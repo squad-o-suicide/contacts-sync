@@ -10,3 +10,8 @@ mybatis:
   configuration:
     map-underscore-to-camel-case: true
   mapper-locations: mapper/*Mapper.xml
+server:
+  port: 8082
+session:
+  timeout:  30
+  timeoutUnit:  DAYS
