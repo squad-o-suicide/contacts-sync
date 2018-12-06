@@ -3,6 +3,7 @@ package org.shoper.contacts.filter;
 import org.shoper.contacts.bean.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -41,4 +42,10 @@ public class UserSession {
             return null;
     }
 
+    public void removeSession(String token) {
+        if (!StringUtils.isEmpty(token)) {
+            userSessionMap.remove(token);
+            expireMap.remove(token);
+        }
+    }
 }

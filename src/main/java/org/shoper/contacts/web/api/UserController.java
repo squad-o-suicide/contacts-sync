@@ -17,6 +17,6 @@ public class UserController {
     @PostMapping({"/user/login", "/admin/login"})
     public BaseResponse userLogin(@RequestBody User user) {
         ResponseBuilder custom = ResponseBuilder.custom();
-        return custom.data(userService.userInfo(user)).build();
+        return custom.data(userService.login(user)).build();
     }
 }

@@ -3,7 +3,13 @@
 <mapper namespace="org.shoper.contacts.repo.UserRepository">
     <select id="findUserByName" resultType="org.shoper.contacts.bean.User"
             parameterType="org.shoper.contacts.bean.User">
-        select id,username,password,phone,`type`
+        select id,username,phone,`type`
         from `user` where username=#{username}
+    </select>
+
+    <select id="findUserByUsernameAndPassword" resultType="org.shoper.contacts.bean.User"
+            parameterType="org.shoper.contacts.bean.User">
+        select id,username,phone,`type`
+        from `user` where username=#{username} and password=MD5(#{password})
     </select>
 </mapper>

@@ -3,6 +3,7 @@ package org.shoper.contacts.filter;
 import org.apache.commons.lang3.StringUtils;
 import org.shoper.contacts.bean.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.*;
 import javax.servlet.http.Cookie;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Objects;
 
+@Component
 public class AuthorityFilter implements Filter {
     @Autowired
     UserSession userSession;
@@ -36,16 +38,20 @@ public class AuthorityFilter implements Filter {
             token = httpServletRequest.getHeader("token");
         User userInfo = null;
         HttpSession httpSession = httpServletRequest.getSession();
-        try {
-            userInfo = (User) httpSession.getAttribute("userInfo");
-        } catch (Exception e) {
-            // should not go there
-        }
+        Object userInfo1 = httpSession.getAttribute("userInfo");
+        if (userInfo1 != null)
+            userInfo = (User) userInfo1;
         if (userInfo == null) {
             User userSission = userSession.getUserSission(token);
-            if (Objects.nonNull(userSession))
+            if (Objects.nonNull(userSission))
                 httpSession.setAttribute("userInfo", userSission);
+        } else {
+            if (!userInfo.getToken().equals(token)) {
+                userSession.removeSession(userInfo.getToken());
+                httpSession.invalidate();
+            }
         }
+        chain.doFilter(request, response);
     }
 
     @Override

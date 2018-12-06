@@ -7,5 +7,5 @@ import java.util.List;
 
 @Data
 public class ContactsReq {
-    private List<Cantact> cantacts;
+    private List<Cantact> contacts;
 }

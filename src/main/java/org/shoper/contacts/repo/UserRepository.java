@@ -6,4 +6,5 @@ import org.shoper.contacts.bean.User;
 @Mapper
 public interface UserRepository {
     User findUserByName(User user);
+    User findUserByUsernameAndPassword(User user);
 }
