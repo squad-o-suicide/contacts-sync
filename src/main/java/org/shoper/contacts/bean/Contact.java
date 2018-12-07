@@ -3,7 +3,6 @@ package org.shoper.contacts.bean;
 import lombok.Data;
 
 import java.util.List;
-import java.util.Map;
 
 @Data
 public class Contact {
@@ -17,8 +16,7 @@ public class Contact {
     //电话
     private List<Phone> phones;
     //其他信息
-    Map<String, String> others;
+    List<OtherInfo> others;
     private Integer uid;
-    private Boolean delete;
     private String token;
 }

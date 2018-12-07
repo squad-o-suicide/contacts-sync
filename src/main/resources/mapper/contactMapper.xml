@@ -3,12 +3,12 @@
 <mapper namespace="org.shoper.contacts.repo.ContactMapper">
     <select id="checkContactExists" resultType="java.lang.Integer">
         select count(0) from contact
-        where u_id = #{uid} and first_name = #{firstName} and last_name=#{lastName};
+        where uid = #{uid} and first_name = #{firstName} and last_name=#{lastName};
     </select>
     <insert id="saveContact" useGeneratedKeys="true" keyProperty="id">
-        insert into contact (avatar,last_name,first_name,u_id,token) values (#{avatar},#{lastName},#{firstName},#{uid},#{token});
+        insert into contact (avatar,last_name,first_name,uid,token) values (#{avatar},#{lastName},#{firstName},#{uid},#{token});
     </insert>
-    <insert id="savePhones" parameterType="org.shoper.contacts.bean.Phone">
+    <insert id="savePhone" parameterType="org.shoper.contacts.bean.Phone">
         insert into phone (cid,phone,remark) values (#{cid},#{phone},#{remark});
     </insert>
     <insert id="saveOtherInfo">
@@ -18,9 +18,27 @@
         update contact set avatar = #{avatar} where last_name = #{lastName} and first_name = #{firstName};
     </update>
     <select id="findContactByName" resultType="org.shoper.contacts.bean.Contact">
-        select id,u_id,last_name,first_name,avatar from contact where last_name = #{lastName} and first_name = #{first_name} and u_id = #{uid} and `delete` = 0
+        select id,uid,last_name,first_name,avatar from contact where last_name = #{lastName} and first_name = #{first_name} and uid = #{uid}
     </select>
-    <update id="deleteContact">
-        update contact set delete = 1 where u_id=#{uid} and id=#{cid}
-    </update>
+    <delete id="deleteContact">
+        delete from contact where uid=#{uid} and id=#{cid}
+    </delete>
+
+    <delete id="deletePhone">
+        delete from phone where cid=#{cid}
+    </delete>
+
+    <delete id="deleteOther">
+        delete from other where cid=#{cid}
+    </delete>
+
+    <select id="getContactByUser" resultType="org.shoper.contacts.bean.Contact">
+        select avatar,last_name,first_name,uid,id from contact where uid=#{uid}
+    </select>
+    <select id="findPhoneByUserAndContact" resultType="org.shoper.contacts.bean.Phone">
+        select id,cid,phone,remark from phone where cid=#{cid}
+    </select>
+    <select id="findOtherByUserAndContact" resultType="org.shoper.contacts.bean.OtherInfo">
+        select id,name,value,cid from phone where cid=#{cid}
+    </select>
 </mapper>

@@ -37,4 +37,5 @@ public class UserController {
         ResponseBuilder custom = ResponseBuilder.custom();
         return custom.data(userService.login(user)).build();
     }
+
 }

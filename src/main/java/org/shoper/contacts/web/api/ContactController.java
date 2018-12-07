@@ -27,7 +27,7 @@ public class ContactController {
     public BaseResponse uploadContact(@SessionAttribute(value = "userInfo", required = false) User user, @RequestBody ContactsReq contactsReq) {
         ResponseBuilder custom = ResponseBuilder.custom();
         if (StringUtils.isEmpty(contactsReq.getToken()) || uploadToken.checkToken(user.getToken(), contactsReq.getToken())) {
-            contactService.uploadContact(user,contactsReq);
+            contactService.uploadContact(user, contactsReq);
         } else {
             throw new RuntimeException("token error.");
         }
@@ -40,4 +40,9 @@ public class ContactController {
         return ResponseBuilder.custom().data(uploadToken.createToken(user.getToken())).build();
     }
 
+    @Authrized({UserType.USER, UserType.ADMIN})
+    @PostMapping("/getContacts")
+    public BaseResponse getContacts(@SessionAttribute(value = "userInfo", required = false) User user) {
+        return ResponseBuilder.custom().data(contactService.getContactByUser(user)).build();
+    }
 }
