@@ -7,4 +7,5 @@ import org.shoper.contacts.bean.User;
 public interface UserRepository {
     User findUserByName(User user);
     User findUserByUsernameAndPassword(User user);
+    int saveUser(User user);
 }

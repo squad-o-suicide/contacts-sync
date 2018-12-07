@@ -1,11 +1,11 @@
 package org.shoper.contacts.web.request;
 
 import lombok.Data;
-import org.shoper.contacts.bean.Cantact;
-
-import java.util.List;
+import org.shoper.contacts.bean.Contact;
 
 @Data
 public class ContactsReq {
-    private List<Cantact> contacts;
+    private Contact contact;
+    //上传凭证.
+    private String token;
 }

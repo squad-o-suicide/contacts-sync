@@ -14,8 +14,26 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @PostMapping({"/user/login", "/admin/login"})
+    @PostMapping({"/user/login"})
     public BaseResponse userLogin(@RequestBody User user) {
+        ResponseBuilder custom = ResponseBuilder.custom();
+        return custom.data(userService.login(user)).build();
+    }
+
+    @PostMapping({"/user/registry"})
+    public BaseResponse userRegistry(@RequestBody User user) {
+        ResponseBuilder custom = ResponseBuilder.custom();
+        return custom.data(userService.userRegistry(user)).build();
+    }
+
+    @PostMapping({"/admin/registry"})
+    public BaseResponse adminRegistry(@RequestBody User user) {
+        ResponseBuilder custom = ResponseBuilder.custom();
+        return custom.data(userService.userRegistry(user)).build();
+    }
+
+    @PostMapping({"/admin/login"})
+    public BaseResponse adminLogin(@RequestBody User user) {
         ResponseBuilder custom = ResponseBuilder.custom();
         return custom.data(userService.login(user)).build();
     }

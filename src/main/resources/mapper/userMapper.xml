@@ -12,4 +12,8 @@
         select id,username,phone,`type`
         from `user` where username=#{username} and password=MD5(#{password})
     </select>
+
+    <insert id="saveUser" useGeneratedKeys="true" keyProperty="id">
+        insert into user (username,password,type,phone) values (#{username},md5(#{password}),#{type},#{phone})
+    </insert>
 </mapper>

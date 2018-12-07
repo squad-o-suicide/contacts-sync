@@ -1,6 +1,7 @@
 package org.shoper.contacts.service;
 
 import org.shoper.contacts.bean.User;
+import org.shoper.contacts.bean.UserType;
 import org.shoper.contacts.filter.UserSession;
 import org.shoper.contacts.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,5 +31,19 @@ public class UserService {
         userByUsernameAndPassword.setToken(token);
         userSession.setUserSession(token, userByUsernameAndPassword);
         return userByUsernameAndPassword;
+    }
+
+    public User userRegistry(User user) {
+        return registry(user, UserType.USER);
+    }
+
+    public User adminRegistry(User user) {
+        return registry(user, UserType.ADMIN);
+    }
+
+    public User registry(User user, UserType userType) {
+        user.setType(userType);
+        userRepository.saveUser(user);
+        return user;
     }
 }

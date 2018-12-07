@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.shoper.contacts.repo.ContactMapper">
+    <select id="checkContactExists" resultType="java.lang.Integer">
+        select count(0) from contact
+        where u_id = #{uid} and first_name = #{firstName} and last_name=#{lastName};
+    </select>
+    <insert id="saveContact" useGeneratedKeys="true" keyProperty="id">
+        insert into contact (avatar,last_name,first_name,u_id,token) values (#{avatar},#{lastName},#{firstName},#{uid},#{token});
+    </insert>
+    <insert id="savePhones" parameterType="org.shoper.contacts.bean.Phone">
+        insert into phone (cid,phone,remark) values (#{cid},#{phone},#{remark});
+    </insert>
+    <insert id="saveOtherInfo">
+        insert into other (cid,`name`,`value`,token) values (#{cid},#{name},#{value},#{token});
+    </insert>
+    <update id="updateContact">
+        update contact set avatar = #{avatar} where last_name = #{lastName} and first_name = #{firstName};
+    </update>
+    <select id="findContactByName" resultType="org.shoper.contacts.bean.Contact">
+        select id,u_id,last_name,first_name,avatar from contact where last_name = #{lastName} and first_name = #{first_name} and u_id = #{uid} and `delete` = 0
+    </select>
+    <update id="deleteContact">
+        update contact set delete = 1 where u_id=#{uid} and id=#{cid}
+    </update>
+</mapper>

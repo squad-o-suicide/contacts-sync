@@ -18,15 +18,22 @@ public class UserSession {
     private TimeUnit sessionTimeoutUnit;
     private Map<String, Long> expireMap = new HashMap<>();
     private Map<String, User> userSessionMap = new HashMap<>();
+    private Map<String, String> usernameToken = new HashMap<>();
 
     public void setUserSession(String token, User user) {
         if (Objects.nonNull(token) && Objects.nonNull(user)) {
+            //检查用户重复登录
+            if (usernameToken.containsKey(user.getUsername())) {
+                String oldToken = usernameToken.get(user.getUsername());
+                removeSession(oldToken);
+                usernameToken.remove(user.getUsername());
+            }
             userSessionMap.put(token, user);
             expireMap.put(token, System.currentTimeMillis());
         }
     }
 
-    public User getUserSission(String token) {
+    public User getUserSession(String token) {
         if (expireMap.containsKey(token)) {
             Long time = expireMap.get(token);
             if (time < System.currentTimeMillis() - sessionTimeoutUnit.toMillis(sessionTimeout)) {

@@ -42,7 +42,7 @@ public class AuthorityFilter implements Filter {
         if (userInfo1 != null)
             userInfo = (User) userInfo1;
         if (userInfo == null) {
-            User userSission = userSession.getUserSission(token);
+            User userSission = userSession.getUserSession(token);
             if (Objects.nonNull(userSission))
                 httpSession.setAttribute("userInfo", userSission);
         } else {
