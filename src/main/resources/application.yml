@@ -1,8 +1,10 @@
 spring:
   datasource:
-    url:  jdbc:mysql://192.168.2.131:3306/contacts-sync?useSSL=true&useUnicode=true&characterEncoding=UTF-8&socketTimeout=20000&connectTimeout=20000
+#    url:  jdbc:mysql://192.168.3.10:3306/contacts-sync?useSSL=false&useUnicode=true&characterEncoding=UTF-8&socketTimeout=20000&connectTimeout=20000
+    url:  jdbc:mysql://119.27.167.18:3306/contacts-sync?useSSL=false&useUnicode=true&characterEncoding=UTF-8&socketTimeout=20000&connectTimeout=20000
     username: root
-    password: 930825
+#    password: root
+    password: xinerzi
     driver-class-name: com.mysql.jdbc.Driver
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
@@ -11,7 +13,7 @@ mybatis:
     map-underscore-to-camel-case: true
   mapper-locations: mapper/*Mapper.xml
 server:
-  port: 80
+  port: 8088
 session:
   timeout:  30
   timeoutUnit:  DAYS
