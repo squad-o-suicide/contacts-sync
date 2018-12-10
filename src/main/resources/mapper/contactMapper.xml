@@ -18,7 +18,7 @@
         update contact set avatar = #{avatar} where last_name = #{lastName} and first_name = #{firstName};
     </update>
     <select id="findContactByName" resultType="org.shoper.contacts.bean.Contact">
-        select id,uid,last_name,first_name,avatar from contact where last_name = #{lastName} and first_name = #{first_name} and uid = #{uid}
+        select id,uid,last_name,first_name,avatar,token from contact where last_name = #{lastName} and first_name = #{firstName} and uid = #{uid}
     </select>
     <delete id="deleteContact">
         delete from contact where uid=#{uid} and id=#{cid}
@@ -33,12 +33,12 @@
     </delete>
 
     <select id="getContactByUser" resultType="org.shoper.contacts.bean.Contact">
-        select avatar,last_name,first_name,uid,id from contact where uid=#{uid}
+        select avatar,last_name,first_name,uid,id,token from contact where uid=#{id}
     </select>
     <select id="findPhoneByUserAndContact" resultType="org.shoper.contacts.bean.Phone">
         select id,cid,phone,remark from phone where cid=#{cid}
     </select>
     <select id="findOtherByUserAndContact" resultType="org.shoper.contacts.bean.OtherInfo">
-        select id,name,value,cid from phone where cid=#{cid}
+        select id,name,value,cid from other where cid=#{cid}
     </select>
 </mapper>

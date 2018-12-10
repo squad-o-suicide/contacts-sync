@@ -14,7 +14,7 @@ public class Contact {
     //名
     private String firstName;
     //电话
-    private List<Phone> phones;
+    private List<Phone> phone;
     //其他信息
     List<OtherInfo> others;
     private Integer uid;
